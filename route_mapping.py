@@ -6,6 +6,7 @@ import tempfile
 import shutil
 
 
+
 # директория данных
 dir_data = '/data'
 # получаем урл из входных аргументов
