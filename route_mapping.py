@@ -5,18 +5,17 @@ import sys
 import tempfile
 import shutil
 
-
-# директория данных
+# Data directory
 dir_data = '/data'
-# получаем урл из входных аргументов
+# Get URL from input arguments
 gtfs_url = str(sys.argv[1])
-# извлекаем из него имя архива с которым работаем
+# Extract the archive name from the URL to work with
 archive = gtfs_url.split("/")[-1]
 
-# Загрузим route_types_mapping.csv в датафрейм pandas
+# Load route_types_mapping.csv into a pandas dataframe
 mapping_df = pd.read_csv('route_types_mapping.csv')
 
-# зададим функцию удаления файла из архива
+# Define function to remove file from zip
 def remove_from_zip(zipfname, *filenames):
     tempdir = tempfile.mkdtemp()
     try:
@@ -31,27 +30,28 @@ def remove_from_zip(zipfname, *filenames):
     finally:
         shutil.rmtree(tempdir)
 
-# сменяем текущую директорию на директорию данных
+# Change the current directory to the data directory
 os.chdir(dir_data)
 
-# извлечем файл routes.txt'
+# Extract the 'routes.txt' file
 with zipfile.ZipFile(archive, 'r') as zip_file:
     zip_file.extract('routes.txt')
 
-# Загрузим routes.txt в датафрейм pandas
+# Load routes.txt into a pandas dataframe
 routes_df = pd.read_csv('routes.txt')
 
-# Замена неподдерживаемых типов маршрутов поддерживаемыми с помощью сопоставления
+# Replace unsupported route types with supported ones using mapping
 routes_df['route_type'].replace(dict(zip(mapping_df['route_type_in'], mapping_df['route_type_out'])), inplace=True)
 
-# сохраним результат в  routes.txt
+# Save the result to 'routes.txt'
 routes_df.to_csv('routes.txt', index=False)
 
-# Удаляем файл routes.txt из исходного архива
+# Remove the 'routes.txt' file from the original archive
 remove_from_zip(archive, 'routes.txt')
 
-# Добавим файл routes.txt в исходный архив
+# Add the 'routes.txt' file to the original archive
 with zipfile.ZipFile(archive, 'a') as z:
     z.write('routes.txt')
 
+# Delete the temporary 'routes.txt'
 os.remove('routes.txt')
