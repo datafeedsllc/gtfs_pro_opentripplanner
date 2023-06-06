@@ -1,0 +1,17 @@
+### Build docker
+```sudo docker build -t opentripplanner .```
+
+### Push docker
+```sudo docker tag opentripplanner gtfspro/opentripplanner```
+
+```sudo docker push gtfspro/opentripplanner:latest```
+
+### Run docker with input commands with open port 8080
+* ```sudo docker run --rm -it -p 8080:8080 opentripplanner <url_gtfs> <url_pbf>```
+* or
+* ```sudo docker run --rm -it -p 8080:8080 gtfspro/opentripplanner <url_gtfs> <url_pbf>```
+  
+### Run example:
+* ```sudo docker run --rm -it -p 8080:8080 gtfspro/opentripplanner https://gtfs.pro/files/uran/improved_gtfs_northern_ireland.zip https://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf```
+
+
