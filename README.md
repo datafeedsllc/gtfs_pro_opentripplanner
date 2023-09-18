@@ -19,3 +19,5 @@ OpenTripplaner in docker works with data from https://gtfs.pro
 ### Run example:
 * ```sudo docker run --rm -it -p 8080:8080 gtfspro/opentripplanner https://gtfs.pro/files/uran/improved_gtfs_northern_ireland.zip https://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf```
 
+#### Route types mapping
+Necessary to map the GTFS route types not supported by OTP to similar route types (including extended types)

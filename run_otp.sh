@@ -13,7 +13,7 @@ wget $pbf_url -P /data/
 
 python3 route_mapping.py $gtfs_url
 
-java -Xmx50G -jar /app/otp-2.3.0-shaded.jar --build /data --save && \
-java -Xmx50G -jar /app/otp-2.3.0-shaded.jar --load /data
+java -Xmx50G -jar /app/otp-2.4.0-shaded.jar --build /data --save && \
+java -Xmx50G -jar /app/otp-2.4.0-shaded.jar --load /data
 
 

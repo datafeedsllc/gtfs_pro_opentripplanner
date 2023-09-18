@@ -9,11 +9,10 @@ RUN apt-get update \
 
 WORKDIR /app
 
-RUN wget https://github.com/opentripplanner/OpenTripPlanner/releases/download/v2.3.0/otp-2.3.0-shaded.jar
+RUN wget https://github.com/opentripplanner/OpenTripPlanner/releases/download/v2.4.0/otp-2.4.0-shaded.jar
 
-#todo Зачем здесь эти команды? Есть .sh скрипт run_otp.sh
-CMD java -Xmx50G -jar otp-2.3.0-shaded.jar --build /data --save && \
-    java -Xmx50G -jar otp-2.3.0-shaded.jar --load /data
+CMD java -Xmx50G -jar otp-2.4.0-shaded.jar --build /data --save && \
+    java -Xmx50G -jar otp-2.4.0-shaded.jar --load /data
 
 VOLUME /data
 
